@@ -1,0 +1,45 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+body {
+  font-family: sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #BA2D40;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.ContentContainer {
+  width: 960px;
+  margin: auto;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.Navbar {
+  background-color: #402DBA;
+}
+.Navbar ul {
+  display: block;
+  border-bottom: 1px solid #BA2D40;
+}
+.Navbar ul li {
+  display: inline-block;
+}
+.Navbar ul li a {
+  text-decoration: none;
+  display: inline-block;
+  color: white;
+  margin-right: 5px;
+  margin-left: 5px;
+  padding: 10px;
+}
+.Navbar ul li a:hover {
+  cursor: pointer;
+  font-weight: bold;
+}

@@ -1,3 +1,6 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+ajax:
+    resource: "@AppBundle/Controller/Ajax"
+    type: annotation

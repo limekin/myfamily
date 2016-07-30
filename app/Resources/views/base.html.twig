@@ -2,12 +2,33 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>MyFamily - {% block title %}{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <!-- This is the base/master/main css file. -->
+        <link rel="stylesheet" href="/css/base.css">
+        <script src="//localhost:35729/livereload.js"></script>
     </head>
     <body>
+        <!-- This is the top navbar. -->
+        <section class='Navbar'>
+            <ul>
+                <li>
+                    <a href="{{path('register')}}">Register</a>
+                </li>
+                <li>
+                    <a href="{{path('index')}}">Home</a>
+                </li>
+                <li>
+                    <a href="">About</a>
+                </li>
+                <li>
+                    <a href="">Contact Us</a>
+                </li>
+            </ul>
+        </section>
         {% block body %}{% endblock %}
+
+        <script src='/js/jquery-3.0.0.min.js'></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

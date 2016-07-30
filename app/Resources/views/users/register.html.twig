@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class='ContentContainer'>
+        <h3>Registration form in  here</h3>
+        {{ form_start(form, {'attr': {'id': 'registerForm'}}) }}
+            {{ form_row(form.family_name, {'attr': {'onChange': "register.checkFamilyName('registerForm')"}}) }}
+            <div id="familyCheck"></div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src='/js/register.js'></script>
+{% endblock javascripts %}
+
+ 
