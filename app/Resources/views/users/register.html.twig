@@ -5,8 +5,31 @@
     <div class='ContentContainer'>
         <h3>Registration form in  here</h3>
         {{ form_start(form, {'attr': {'id': 'registerForm'}}) }}
-            {{ form_row(form.family_name, {'attr': {'onChange': "register.checkFamilyName('registerForm')"}}) }}
+
+            {{ form_errors(form.family_name)}} 
+            {{ form_label(form.family_name) }} <br>
+            {{ form_widget(form.family_name, {'attr': {'onChange': "register.checkFamilyName('registerForm')"}}) }}
+            <br> 
             <div id="familyCheck"></div>
+            <br>
+
+            {{ form_errors(form.name )}}
+            {{ form_label(form.name) }} <br>
+            {{ form_widget(form.name)}} <br>
+ 
+            {{ form_errors(form.email )}} <br>
+            {{ form_label(form.email) }} <br>
+            {{ form_widget(form.email)}} <br>
+
+
+            {{ form_errors(form.password )}} <br>
+            {{ form_label(form.password) }} <br>
+            {{ form_widget(form.password)}} <br>
+
+            {{ form_errors(form.phone )}}<br>
+            {{ form_label(form.phone) }} <br>
+            {{ form_widget(form.phone)}} <br>
+
         {{ form_end(form) }}
     </div>
 {% endblock %}

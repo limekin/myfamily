@@ -5,3 +5,8 @@ These are the things to do in the site.
 3. Setup up the regisration part.
     * Users can register as just users.
     * They can setup their name, email and stuffs that matters.
+
+
+Should be done:
+--------------
+1. Implement CSRF tokens in forms.

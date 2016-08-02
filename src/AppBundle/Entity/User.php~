@@ -5,92 +5,107 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Family
+ * User
  *
- * @ORM\Table(name="family")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\FamilyRepository")
+ * @ORM\Table(name="usermaster")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class Family
+class User
 {
 
     /**
      * @var int
      *
-     * @ORM\Column(name="family_id", type="integer", unique=true)
+     * @ORM\Column(name="user_id", type="integer", unique=true)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $userId;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="family_id", type="integer")
      */
     private $familyId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="family_name", type="string", length=250)
+     * @ORM\Column(name="username", type="string", length=50, unique=true)
      */
-    private $familyName;
+    private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="family_domain", type="string", length=200)
+     * @ORM\Column(name="password", type="string", length=200)
      */
-    private $familyDomain;
+    private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="family_keyword", type="string", length=200)
+     * @ORM\Column(name="countrycode", type="string", length=10)
      */
-    private $familyKeyword;
+    private $countrycode;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="family_logo", type="text")
+     * @ORM\Column(name="phone_number", type="string", length=20)
      */
-    private $familyLogo;
+    private $phoneNumber;
 
     /**
-     * @var bool
+     * @var int
      *
-     * @ORM\Column(name="active_status", type="boolean")
+     * @ORM\Column(name="user_type", type="integer")
      */
-    private $activeStatus = 1;
+    private $userType;
 
     /**
-     * @var bool
+     * @var int
      *
-     * @ORM\Column(name="top_panel", type="boolean")
+     * @ORM\Column(name="active_status", type="integer")
      */
-    private $topPanel = 1;
+    private $activeStatus;
 
     /**
-     * @var bool
+     * @var int
      *
-     * @ORM\Column(name="bottom_panel", type="boolean")
+     * @ORM\Column(name="verified", type="integer")
      */
-    private $bottomPanel = 1;
+    private $verified = 0;
 
     /**
-     * @var date
+     * @var \DateTime
+     *
      * @ORM\Column(name="created_on", type="date")
      */
     private $createdOn;
 
     /**
+     * @var int
+     *
      * @ORM\Column(name="created_by", type="integer")
      */
     private $createdBy;
 
     /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="modified_on", type="date")
      */
     private $modifiedOn;
 
     /**
+     * @var int
+     *
      * @ORM\Column(name="modified_by", type="integer")
      */
     private $modifiedBy;
+
 
     /**
      * Get id
@@ -103,11 +118,35 @@ class Family
     }
 
     /**
+     * Set userId
+     *
+     * @param integer $userId
+     *
+     * @return User
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
      * Set familyId
      *
      * @param integer $familyId
      *
-     * @return Family
+     * @return User
      */
     public function setFamilyId($familyId)
     {
@@ -127,107 +166,131 @@ class Family
     }
 
     /**
-     * Set familyName
+     * Set username
      *
-     * @param string $familyName
+     * @param string $username
      *
-     * @return Family
+     * @return User
      */
-    public function setFamilyName($familyName)
+    public function setUsername($username)
     {
-        $this->familyName = $familyName;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get familyName
+     * Get username
      *
      * @return string
      */
-    public function getFamilyName()
+    public function getUsername()
     {
-        return $this->familyName;
+        return $this->username;
     }
 
     /**
-     * Set familyDomain
+     * Set password
      *
-     * @param string $familyDomain
+     * @param string $password
      *
-     * @return Family
+     * @return User
      */
-    public function setFamilyDomain($familyDomain)
+    public function setPassword($password)
     {
-        $this->familyDomain = $familyDomain;
+        $this->password = $password;
 
         return $this;
     }
 
     /**
-     * Get familyDomain
+     * Get password
      *
      * @return string
      */
-    public function getFamilyDomain()
+    public function getPassword()
     {
-        return $this->familyDomain;
+        return $this->password;
     }
 
     /**
-     * Set familyKeyword
+     * Set countrycode
      *
-     * @param string $familyKeyword
+     * @param string $countrycode
      *
-     * @return Family
+     * @return User
      */
-    public function setFamilyKeyword($familyKeyword)
+    public function setCountrycode($countrycode)
     {
-        $this->familyKeyword = $familyKeyword;
+        $this->countrycode = $countrycode;
 
         return $this;
     }
 
     /**
-     * Get familyKeyword
+     * Get countrycode
      *
      * @return string
      */
-    public function getFamilyKeyword()
+    public function getCountrycode()
     {
-        return $this->familyKeyword;
+        return $this->countrycode;
     }
 
     /**
-     * Set familyLogo
+     * Set phoneNumber
      *
-     * @param string $familyLogo
+     * @param string $phoneNumber
      *
-     * @return Family
+     * @return User
      */
-    public function setFamilyLogo($familyLogo)
+    public function setPhoneNumber($phoneNumber)
     {
-        $this->familyLogo = $familyLogo;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
 
     /**
-     * Get familyLogo
+     * Get phoneNumber
      *
      * @return string
      */
-    public function getFamilyLogo()
+    public function getPhoneNumber()
     {
-        return $this->familyLogo;
+        return $this->phoneNumber;
+    }
+
+    /**
+     * Set userType
+     *
+     * @param integer $userType
+     *
+     * @return User
+     */
+    public function setUserType($userType)
+    {
+        $this->userType = $userType;
+
+        return $this;
+    }
+
+    /**
+     * Get userType
+     *
+     * @return int
+     */
+    public function getUserType()
+    {
+        return $this->userType;
     }
 
     /**
      * Set activeStatus
      *
-     * @param boolean $activeStatus
+     * @param integer $activeStatus
      *
-     * @return Family
+     * @return User
      */
     public function setActiveStatus($activeStatus)
     {
@@ -239,7 +302,7 @@ class Family
     /**
      * Get activeStatus
      *
-     * @return bool
+     * @return int
      */
     public function getActiveStatus()
     {
@@ -247,59 +310,11 @@ class Family
     }
 
     /**
-     * Set topPanel
-     *
-     * @param boolean $topPanel
-     *
-     * @return Family
-     */
-    public function setTopPanel($topPanel)
-    {
-        $this->topPanel = $topPanel;
-
-        return $this;
-    }
-
-    /**
-     * Get topPanel
-     *
-     * @return bool
-     */
-    public function getTopPanel()
-    {
-        return $this->topPanel;
-    }
-
-    /**
-     * Set bottomPanel
-     *
-     * @param boolean $bottomPanel
-     *
-     * @return Family
-     */
-    public function setBottomPanel($bottomPanel)
-    {
-        $this->bottomPanel = $bottomPanel;
-
-        return $this;
-    }
-
-    /**
-     * Get bottomPanel
-     *
-     * @return bool
-     */
-    public function getBottomPanel()
-    {
-        return $this->bottomPanel;
-    }
-
-    /**
      * Set createdOn
      *
      * @param \DateTime $createdOn
      *
-     * @return Family
+     * @return User
      */
     public function setCreatedOn($createdOn)
     {
@@ -323,7 +338,7 @@ class Family
      *
      * @param integer $createdBy
      *
-     * @return Family
+     * @return User
      */
     public function setCreatedBy($createdBy)
     {
@@ -335,7 +350,7 @@ class Family
     /**
      * Get createdBy
      *
-     * @return integer
+     * @return int
      */
     public function getCreatedBy()
     {
@@ -347,7 +362,7 @@ class Family
      *
      * @param \DateTime $modifiedOn
      *
-     * @return Family
+     * @return User
      */
     public function setModifiedOn($modifiedOn)
     {
@@ -371,7 +386,7 @@ class Family
      *
      * @param integer $modifiedBy
      *
-     * @return Family
+     * @return User
      */
     public function setModifiedBy($modifiedBy)
     {
@@ -383,10 +398,11 @@ class Family
     /**
      * Get modifiedBy
      *
-     * @return integer
+     * @return int
      */
     public function getModifiedBy()
     {
         return $this->modifiedBy;
     }
 }
+
