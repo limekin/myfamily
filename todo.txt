@@ -1,12 +1,6 @@
-These are the things to do in the site.
+TODO
 
-1. Setup the home page.
-2. Setup the static pages.
-3. Setup up the regisration part.
-    * Users can register as just users.
-    * They can setup their name, email and stuffs that matters.
-
-
-Should be done:
---------------
-1. Implement CSRF tokens in forms.
+* Understand the current functionalities and the code written well.
+* Implement the register funcionality really well.
+    Register includes taking email, name, phone and family name and the confirmation.
+    Uncomfirmed accounts will have notifications realting to it.

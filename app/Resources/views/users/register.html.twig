@@ -30,6 +30,15 @@
             {{ form_label(form.phone) }} <br>
             {{ form_widget(form.phone)}} <br>
 
+            <br>
+
+            <div>
+                {{ captchaError }}
+            </div>
+            <!-- Captcha by reCaptcha. -->
+            <div class="g-recaptcha" data-sitekey="6LeN-CcTAAAAANhDoQzRDwDhIZRnyB_NWKzTDWXt"></div>
+            <br>
+
         {{ form_end(form) }}
     </div>
 {% endblock %}

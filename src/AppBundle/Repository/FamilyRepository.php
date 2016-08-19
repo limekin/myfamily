@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\Family;
 
 /**
  * FamilyRepository
@@ -10,4 +11,19 @@ namespace AppBundle\Repository;
  */
 class FamilyRepository extends \Doctrine\ORM\EntityRepository
 {
+     // Creates a new unverified family. 
+    public function createTrialFamily($data) {
+        $em = $this->getEntityManager();
+        $family = new Family();
+        $family->setFamilyName($data['family_name']);
+        $family->setCreatedOn(new \DateTime("NOW"));
+        $family->setCreatedBy(0);
+        $family->setModifiedOn(new \DateTime("NOW"));
+        $family->setModifiedBy(0);
+
+        $em->persist($family);
+        $em->flush();
+
+        return $family->getFamilyId();
+    }
 }

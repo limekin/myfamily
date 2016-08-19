@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\User;
 
 /**
  * UserRepository
@@ -10,4 +11,22 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+     // Creates a new unverified user.
+    public function createTrialUser($data, $familyId) {
+        $em = $this->getEntityManager();
+        $user = new User();
+        $user->setUsername($data['email']);
+        // Hash the password.
+        $user->setPassword( password_hash($data['password'], PASSWORD_DEFAULT));
+        $user->setPhoneNumber($data['phone']);
+        $user->setFamilyId($familyId);
+        $user->setCreatedOn(new \DateTime("NOW"));
+        $user->setCreatedBy(0);
+        $user->setModifiedOn(new \DateTime("NOW"));
+        $user->setModifiedBy(0);
+        $em->persist($user);
+        $em->flush();
+
+        return $user; 
+    }
 }

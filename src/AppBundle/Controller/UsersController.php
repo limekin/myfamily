@@ -16,6 +16,8 @@ use Symfony\Component\HttpFoundation\Request;
 // For the User entity.
 use AppBundle\Entity\User;
 use AppBundle\Entity\Family;
+// For guzzle http.
+use GuzzleHttp\Client;
 
 /**
  * This controller handles all the things a user can do with his
@@ -52,58 +54,40 @@ class UsersController extends Controller
             ->getForm();
 
         $form->handleRequest($request);
+        $captchaError = "";
 
-        // Check if it's a form submission and the data in it are valid.
-        if($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            // Create the family first.
-            $familyId = $this->createFamily($data);
-
-            // Now create the user. And get back the created user.
-            $user = $this->createUser($data, $familyId);
-
-            // Now send the verification email.
-            $this->sendVerificationMail($user);
+        // Get the recaptcha response. And validate it.
+        $captchaResponse = $request->request->get('g-recaptcha-response');
+        if($captchaResponse) {
+            $captchaError = $this->validateCaptcha($captchaResponse);
+            if($captchaError) 
+                $captchaError = "Captcha validation failed.";
         }
 
+        // Check if it's a form submission and the data in it are valid.
+        if($form->isSubmitted() && $form->isValid() && !$captchaError) {
+            // Get the data from the post.
+            $data = $form->getData();
+
+            // Get the repositories.
+            $em = $this->getDoctrine()->getManager();
+            $userRepo = $em->getRepository('AppBundle:User');
+            $familyRepo = $em->getRepository('AppBundle:Family');
+
+            // Create the family first.
+            $familyId = $familyRepo->createTrialFamily($data);
+
+            // Now create the user. And get back the created user.
+            $user = $userRepo->createTrialUser($data, $familyId);
+
+            // Now send the verification email.
+            //$this->sendVerificationMail($user);
+        }
 
         return $this->render('users/register.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'captchaError' => $captchaError
         ));
-    }
-
-    // Creates a new unverified user.
-    private function createUser($data, $familyId) {
-        $em = $this->getDoctrine()->getManager();
-        $user = new User();
-        $user->setUsername($data['email']);
-        $user->setPassword($data['password']);
-        $user->setPhoneNumber($data['phone']);
-        $user->setFamilyId($familyId);
-        $user->setCreatedOn(new \DateTime("NOW"));
-        $user->setCreatedBy(0);
-        $user->setModifiedOn(new \DateTime("NOW"));
-        $user->setModifiedBy(0);
-        $em->persist($user);
-        $em->flush();
-
-        return $user; 
-    }
-
-    // Creates a new unverified family. 
-    private function createFamily($data) {
-        $em = $this->getDoctrine()->getManager();
-        $family = new Family();
-        $family->setFamilyName($data['family_name']);
-        $family->setCreatedOn(new \DateTime("NOW"));
-        $family->setCreatedBy(0);
-        $family->setModifiedOn(new \DateTime("NOW"));
-        $family->setModifiedBy(0);
-
-        $em->persist($family);
-        $em->flush();
-
-        return $family->getFamilyId();
     }
 
     // This will send the verification email to the given users mail.
@@ -124,5 +108,20 @@ class UsersController extends Controller
         return;
     }
 
-
+    // Validates the captcha.
+    private function validateCaptcha($captchaResponse) {
+        $client = new Client([
+            'base_uri' => 'https://www.google.com/recaptcha/api/siteverify',
+            'timeout' => 2.0
+        ]);
+        $response = $client->request('POST', 'https://www.google.com/recaptcha/api/siteverify', array(
+            'form_params' => array(
+                'secret' => '6LeN-CcTAAAAANqBk5nsARpfG82ndeagRCBQ6xhr',
+                'response' => $captchaResponse
+            )
+        ));
+       $jsonResponse = json_decode($response->getBody()->getContents());
+       if($jsonResponse->success == true) return null;
+       return false;
+    }
 }
