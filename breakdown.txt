@@ -1,0 +1,33 @@
+Android App Scenes
+=================
+
+HOME
+1. Take transaction with amount, category, and debit or cedit.
+2. Show this and prev months months total.
+
+CATEGORIES
+1. Shows all the categories used.
+
+SINGLECATGOERY
+1. Shows all the transactions under the given category.
+
+SINGLETRANSACTION
+1. Shows the transaction details.
+
+MONTHS
+1. Shows months with amount spend.
+
+SINGLE MONTH
+1. Shows transactions of the given month.
+
+MENU
+1. Months
+2. Categories
+3. Comparisons
+4. Exit
+
+
+
+
+
+

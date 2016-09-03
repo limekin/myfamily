@@ -34,21 +34,21 @@ class Family
      *
      * @ORM\Column(name="family_domain", type="string", length=200)
      */
-    private $familyDomain;
+    private $familyDomain = "none";
 
     /**
      * @var string
      *
      * @ORM\Column(name="family_keyword", type="string", length=200)
      */
-    private $familyKeyword;
+    private $familyKeyword = "none";
 
     /**
      * @var string
      *
      * @ORM\Column(name="family_logo", type="text")
      */
-    private $familyLogo;
+    private $familyLogo = "none";
 
     /**
      * @var bool
@@ -80,12 +80,12 @@ class Family
     /**
      * @ORM\Column(name="created_by", type="integer")
      */
-    private $createdBy;
+    private $createdBy = 0;
 
     /**
      * @ORM\Column(name="modified_on", type="date")
      */
-    private $modifiedOn;
+    private $modifiedOn = 1;
 
     /**
      * @ORM\Column(name="modified_by", type="integer")

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="usermaster")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User
+class User implements UserInterface, \Serializable
 {
 
     /**
@@ -30,11 +31,24 @@ class User
     private $familyId;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Family", inversedBy="users")
+     * @ORM\JoinColumn(name="family_id", referencedColumnName="family_id")
+     */
+    private $family;
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=50, unique=true)
      */
     private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=50)
+     */
+    private $name;
 
     /**
      * @var string
@@ -427,5 +441,80 @@ class User
     public function getVerified()
     {
         return $this->verified;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return User
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set family
+     *
+     * @param \AppBundle\Entity\Family $family
+     *
+     * @return User
+     */
+    public function setFamily(\AppBundle\Entity\Family $family = null)
+    {
+        $this->family = $family;
+
+        return $this;
+    }
+
+    /**
+     * Get family
+     *
+     * @return \AppBundle\Entity\Family
+     */
+    public function getFamily()
+    {
+        return $this->family;
+    }
+
+    public function getRoles() {
+        return array('ROLE_USER');
+    }
+    public function getSalt() {
+        return null;
+    }
+
+    public function eraseCredentials() {
+
+    }
+
+    public function serialize() {
+        return serialize(array(
+            $this->userId,
+            $this->username,
+            $this->password
+        ));
+    }
+
+    public function unserialize($serialized) {
+        list(
+            $this->userId,
+            $this->username,
+            $this->password
+        ) = unserialize($serialized);
     }
 }

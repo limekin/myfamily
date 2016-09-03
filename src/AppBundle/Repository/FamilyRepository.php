@@ -24,6 +24,14 @@ class FamilyRepository extends \Doctrine\ORM\EntityRepository
         $em->persist($family);
         $em->flush();
 
-        return $family->getFamilyId();
+        return $family;
+    }
+
+    /**
+     * This creates a URL friendly name of a family name.
+     */
+    private function createKey($familyName) {
+        
+
     }
 }

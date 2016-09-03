@@ -8,29 +8,36 @@
 
 body {
     font-family: sans-serif;
+    color:@textColor;
 }
 
 // Style all the headers that appear in the site.
 h1, h2, h3, h4, h5, h6  {
     color: @secondaryColor;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     margin-top: 5px;
+}
+
+// Style paragraph text.
+p {
+    font-size: 1.2em;
 }
 
 // These are sections for the site.
 .ContentContainer {
   width: 960px;  
   margin: auto;    
-  padding: 10px;
+  padding: 20px;
   box-sizing: border-box;
 }
 
 // Navbar.
 .Navbar {
     background-color: @primaryColor;
+    box-shadow: 0px 2px 5px -1px grey;
     ul {
         display: block;
-        border-bottom: 1px solid @secondaryColor;
+        //border-bottom: 1px solid @secondaryColor;
 
         li {
             display: inline-block;
@@ -40,12 +47,28 @@ h1, h2, h3, h4, h5, h6  {
                 color: white;
                 margin-right: 5px;
                 margin-left: 5px;
-                padding: 10px;
+                padding: 15px;
+                border-bottom: 2px solid transparent;
                 &:hover{
                     cursor: pointer;
-                    font-weight: bold;
+                    border-bottom:2px solid white;
                 }
             }
         }
     } 
+}
+
+// Style sthe forms.
+form {
+    input {
+        height: 30px;
+        width: 300px;
+        padding: 3px;
+        border: 1px solid silver;
+        box-sizing: border-box;
+        &:focus{
+            border-color: @secondaryColor;
+        }
+    }
+
 }

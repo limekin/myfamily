@@ -12,14 +12,15 @@ use AppBundle\Entity\User;
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
      // Creates a new unverified user.
-    public function createTrialUser($data, $familyId) {
+    public function createTrialUser($data, $family, $encoder) {
         $em = $this->getEntityManager();
         $user = new User();
         $user->setUsername($data['email']);
+        $user->setName($data['name']);
         // Hash the password.
-        $user->setPassword( password_hash($data['password'], PASSWORD_DEFAULT));
+        $user->setPassword( $encoder->encodePassword($user, $data['password']) );
         $user->setPhoneNumber($data['phone']);
-        $user->setFamilyId($familyId);
+        $user->setFamily($family);
         $user->setCreatedOn(new \DateTime("NOW"));
         $user->setCreatedBy(0);
         $user->setModifiedOn(new \DateTime("NOW"));
